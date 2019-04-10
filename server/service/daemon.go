@@ -5,17 +5,12 @@ import (
 	"errors"
 	"fmt"
 	"log"
-
-	"github.com/go-mangos/mangos"
-	"github.com/go-mangos/mangos/protocol/rep"
-	"github.com/go-mangos/mangos/transport/tcp"
-	"github.com/v1n337/flotilla/flotilla-server/daemon/broker/activemq"
-	"github.com/v1n337/flotilla/flotilla-server/daemon/broker/amqp"
-	"github.com/v1n337/flotilla/flotilla-server/daemon/broker/amqp/rabbitmq"
-	"github.com/v1n337/flotilla/flotilla-server/daemon/broker/beanstalkd"
-	"github.com/v1n337/flotilla/flotilla-server/daemon/broker/kafka"
-	"github.com/v1n337/flotilla/flotilla-server/daemon/broker/nats"
-	"github.com/v1n337/flotilla/flotilla-server/daemon/broker/nsq"
+	
+	"github.com/nanomsg/mangos-v1-freeze"
+	"github.com/nanomsg/mangos-v1-freeze/protocol/rep"
+	"github.com/nanomsg/mangos-v1-freeze/transport/tcp"
+	"github.com/vohrahul/mq-benchmarking/server/service/broker/amqp"
+	"github.com/vohrahul/mq-benchmarking/server/service/broker/amqp/rabbitmq"
 )
 
 type daemon string
@@ -33,12 +28,7 @@ const (
 
 // These are supported message brokers.
 const (
-	NATS        = "nats"
-	Beanstalkd  = "beanstalkd"
-	Kafka       = "kafka"
-	ActiveMQ    = "activemq"
 	RabbitMQ    = "rabbitmq"
-	NSQ         = "nsq"
 )
 
 type request struct {
@@ -110,7 +100,6 @@ type Config struct {
 // Daemon is the server portion of Flotilla which runs on machines we want to
 // communicate with and include in our benchmarks.
 type Daemon struct {
-	mangos.Socket
 	broker      broker
 	publishers  []*publisher
 	subscribers []*subscriber
