@@ -6,9 +6,9 @@ import (
 	"fmt"
 	"log"
 	
-	"github.com/nanomsg/mangos-v1-freeze"
-	"github.com/nanomsg/mangos-v1-freeze/protocol/rep"
-	"github.com/nanomsg/mangos-v1-freeze/transport/tcp"
+	"github.com/nanomsg/mangos"
+	"github.com/nanomsg/mangos/protocol/rep"
+	"github.com/nanomsg/mangos/transport/tcp"
 	"github.com/vohrahul/mq-benchmarking/server/service/broker/amqp"
 	"github.com/vohrahul/mq-benchmarking/server/service/broker/amqp/rabbitmq"
 )
@@ -205,18 +205,8 @@ func (d *Daemon) processBrokerStart(broker, host, port string) (interface{}, err
 	}
 
 	switch broker {
-	case NATS:
-		d.broker = &nats.Broker{}
-	case Beanstalkd:
-		d.broker = &beanstalkd.Broker{}
-	case Kafka:
-		d.broker = &kafka.Broker{}
-	case ActiveMQ:
-		d.broker = &activemq.Broker{}
 	case RabbitMQ:
 		d.broker = &rabbitmq.Broker{}
-	case NSQ:
-		d.broker = &nsq.Broker{}
 	default:
 		return "", fmt.Errorf("Invalid broker %s", broker)
 	}

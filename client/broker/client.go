@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"github.com/nanomsg/mangos"
-	"github.com/nanomsg/mangos/protocol/req"
+	"github.com/nanomsg/mangos/protocol/rep"
 	"github.com/nanomsg/mangos/transport/tcp"
 )
 
